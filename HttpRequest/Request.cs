@@ -11,60 +11,63 @@ namespace HttpRequest
 {
     class HttpRequest
     {
-        public string url = "http://oneport.unca.edu";
         public string referer = "https://oneport.unca.edu/group/students/home/";
-        public string username;
-        public string password;
+        public static string username = "mherzog";
+        public static string password = "*H00a33t00e44!";
+        public string url = $"https://oneport.unca.edu/";
 
         public void CreateRequest()
         {
             //Create GET request for oneport.unca.edu
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Host = "oneport.unca.edu";
-            
+
             //Set request referer
-            request.Referer = referer;
+            //request.Referer = referer;
 
             //Get username and password
             Console.Write("Enter username: ");
-            username = Console.ReadLine();
+            //username = Console.ReadLine();
+            Console.Write(username + "\n");
             Console.Write("Enter password: ");
-            password = Console.ReadLine();
+            //password = Console.ReadLine();
+            Console.WriteLine(password);
 
             //Set username and password
             CredentialCache.DefaultNetworkCredentials.UserName = username;
             CredentialCache.DefaultNetworkCredentials.Password = password;
 
             //Set up POST request
-            var postData = username + password;
-            var data = Encoding.ASCII.GetBytes(postData);
+            //var postData = username;
+            //postData += password;
+            var data = Encoding.ASCII.GetBytes(username);
 
-            //Set request credentials to above
-
-            //Set user-agent from postman
+            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            request.Headers["Upgrade-Insecure-Requests"] = "1";
             request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
-
-            //Create request method
-            request.Method = "POST";
-
-            //Set content type
-            request.ContentType = "application/x-www-form-urlencoded";//"text/plain;charset=UTF-8";
-
-
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Referer = "https://oneport.unca.edu/cas/login?service=https%3A%2F%2Foneport.unca.edu%2Fc%2Fportal%2Flogin";
             request.Method = "POST";
             request.ContentLength = data.Length;
-
+            CredentialCache.DefaultNetworkCredentials.Password = password;
+            CredentialCache.DefaultNetworkCredentials.UserName = username;
+            request.UseDefaultCredentials = true;
+            Console.Write($"request.RequestUri.PathAndQuery: {request.RequestUri.PathAndQuery}\n");// = $"/?username={username}&password={password}";
             using (var stream = request.GetRequestStream())
             {
                 stream.Write(data, 0, data.Length);
             }
             try
             {
-                request.Credentials = CredentialCache.DefaultNetworkCredentials;
+                Console.Write($"request.RequestUri.PathAndQuery: {request.RequestUri.PathAndQuery}\n");// = $"/?username={username}&password={password}";
+
+                //CredentialCache.DefaultNetworkCredentials.Domain = url;
+                //request.Credentials = CredentialCache.DefaultNetworkCredentials;
                 var response = (HttpWebResponse)request.GetResponse();
-                
+
+                Console.Write($"response.ResponseUri.Segments[2].ToString(): {response.ResponseUri.Segments[2].ToString()}");
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                Console.Write(responseString.ToString());
+                //Console.Write(responseString.ToString());
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                 {
                     Process.GetCurrentProcess().Kill();
