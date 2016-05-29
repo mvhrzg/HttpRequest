@@ -6,3 +6,5 @@ c:\users\mvher\onedrive\documents\visual studio 2015\Projects\HttpRequest\HttpRe
 c:\users\mvher\onedrive\documents\visual studio 2015\Projects\HttpRequest\HttpRequest\obj\Debug\HttpRequest.pdb
 C:\Users\mvher\OneDrive\Documents\Visual Studio 2015\Projects\HttpRequest\HttpRequest\bin\Debug\RestSharp.dll
 C:\Users\mvher\OneDrive\Documents\Visual Studio 2015\Projects\HttpRequest\HttpRequest\bin\Debug\RestSharp.xml
+C:\Users\mvher\OneDrive\Documents\Visual Studio 2015\Projects\HttpRequest\HttpRequest\bin\Debug\Newtonsoft.Json.dll
+C:\Users\mvher\OneDrive\Documents\Visual Studio 2015\Projects\HttpRequest\HttpRequest\bin\Debug\Newtonsoft.Json.xml
